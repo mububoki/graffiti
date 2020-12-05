@@ -9,13 +9,14 @@ import (
 )
 
 func main() {
-	fileRandom, err := os.Create("random.gif")
+	fileRandom, err := os.Create("solid.gif")
 	if err != nil {
 		panic(err)
 	}
 	defer fileRandom.Close()
 
-	if err := gif.EncodeSolid(fileRandom, image.Rect(0, 0, 100, 100), graffiti.RandomColor(), nil); err != nil {
+	width, height := 1280, 720
+	if err := gif.EncodeSolid(fileRandom, image.Rect(0, 0, width, height), graffiti.RandomColor(), &gif.Options{NumColors: 255}); err != nil {
 		panic(err)
 	}
 }

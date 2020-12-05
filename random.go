@@ -37,7 +37,7 @@ func randomColorRGBA() *color.RGBA {
 		R: randomUint8(),
 		G: randomUint8(),
 		B: randomUint8(),
-		A: randomUint8(),
+		A: 0xff,
 	}
 }
 

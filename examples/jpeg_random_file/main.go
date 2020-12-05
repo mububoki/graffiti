@@ -14,7 +14,8 @@ func main() {
 	}
 	defer fileRandom.Close()
 
-	if err := jpeg.EncodeRandom(fileRandom, image.Rect(0, 0, 100, 100), &jpeg.Options{Quality: 100}); err != nil {
+	width, height := 1280, 720
+	if err := jpeg.EncodeRandom(fileRandom, image.Rect(0, 0, width, height), &jpeg.Options{Quality: 100}); err != nil {
 		panic(err)
 	}
 }

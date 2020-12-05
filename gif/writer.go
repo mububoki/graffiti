@@ -13,7 +13,8 @@ type Options = gif.Options
 
 //EncodeSolid writes the solid colored image with the rectangle and the color c to w in GIF format.
 func EncodeSolid(w io.Writer, rectangle image.Rectangle, c color.Color, o *Options) error {
-	return gif.Encode(w, image.Image(graffiti.NewSolid(rectangle, c)), o)
+	//plan9 := color.Palette(palette.Plan9)
+	return gif.Encode(w, graffiti.SolidImage(rectangle, c), o)
 }
 
 //EncodeRandom writes the random image with the rectangle to w in GIF format.
