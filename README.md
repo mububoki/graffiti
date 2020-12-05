@@ -5,5 +5,5 @@ support:
 jpeg, gif
 
 see Examples: 
-https://github.com/mububoki/graffiti/examples
+https://github.com/mububoki/graffiti/tree/main/examples
 
