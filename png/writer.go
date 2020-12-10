@@ -9,7 +9,7 @@ import (
 	"github.com/mububoki/graffiti"
 )
 
-// EncodeSolid writes the random image with the rectangle and the color c to w in PNG format.
+// EncodeSolid writes the solid image with the rectangle and the color c to w in PNG format.
 func EncodeSolid(w io.Writer, rectangle image.Rectangle, c color.Color) error {
 	return png.Encode(w, graffiti.SolidImage(rectangle, c))
 }
