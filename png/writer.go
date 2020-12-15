@@ -18,3 +18,8 @@ func EncodeSolid(w io.Writer, rectangle image.Rectangle, c color.Color) error {
 func EncodeRandom(w io.Writer, rectangle image.Rectangle) error {
 	return png.Encode(w, graffiti.RandomImage(rectangle))
 }
+
+// EncodeGradation writes the gradation image with the rectangle and the color c to w in PNG format.
+func EncodeGradation(w io.Writer, rectangle image.Rectangle, c color.Color) error {
+	return png.Encode(w, graffiti.GradationImage(rectangle, c))
+}

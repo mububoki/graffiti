@@ -20,3 +20,8 @@ func EncodeSolid(w io.Writer, rectangle image.Rectangle, c color.Color, o *Optio
 func EncodeRandom(w io.Writer, rectangle image.Rectangle, o *Options) error {
 	return jpeg.Encode(w, graffiti.RandomImage(rectangle), o)
 }
+
+//EncodeGradation writes the gradation image with the rectangle to w in JPEG 4:2:0 baseline format with the given options. Default parameters are used if a nil *Options is passed.
+func EncodeGradation(w io.Writer, rectangle image.Rectangle, c color.Color, o *Options) error {
+	return jpeg.Encode(w, graffiti.GradationImage(rectangle, c), o)
+}
