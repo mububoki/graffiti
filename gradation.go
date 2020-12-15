@@ -13,10 +13,10 @@ func GradationImage(rectangle image.Rectangle, c color.Color) image.Image {
 func gradationRGBA(rectangle image.Rectangle, c color.Color) *image.RGBA {
 	r, g, b, a := c.RGBA()
 
-	rWhite64 := float64(0xffff)
-	r64 := float64(r)
-	g64 := float64(g)
-	b64 := float64(b)
+	var rWhite uint8 = 0xff
+	distR := rWhite - uint8(r)
+	distG := rWhite - uint8(g)
+	distB := rWhite - uint8(b)
 	a8 := uint8(a)
 
 	rgba := image.NewRGBA(rectangle)
@@ -25,9 +25,9 @@ func gradationRGBA(rectangle image.Rectangle, c color.Color) *image.RGBA {
 
 	for x := minX; x < rectangle.Max.X; x++ {
 		rate := float64(x-minX) / float64(dx)
-		r := uint8(rWhite64*(1-rate) + r64*rate)
-		g := uint8(rWhite64*(1-rate) + g64*rate)
-		b := uint8(rWhite64*(1-rate) + b64*rate)
+		r := rWhite - uint8(float64(distR)*rate)
+		g := rWhite - uint8(float64(distG)*rate)
+		b := rWhite - uint8(float64(distB)*rate)
 		for y := rectangle.Min.Y; y < rectangle.Max.Y; y++ {
 			rgba.Set(x, y, color.RGBA{
 				R: r,
