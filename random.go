@@ -4,43 +4,29 @@ import (
 	"image"
 	"image/color"
 	"math/rand"
-	"time"
 )
-
-func init() {
-	rand.Seed(time.Now().UnixNano())
-}
 
 //RandomImage returns a new random Image.
 func RandomImage(rectangle image.Rectangle) image.Image {
-	return image.Image(randomImageRGBA(rectangle))
-}
-
-func randomImageRGBA(r image.Rectangle) *image.RGBA {
-	rgba := image.NewRGBA(r)
-	for x := r.Min.X; x < r.Max.X; x++ {
-		for y := r.Min.Y; y < r.Max.Y; y++ {
-			rgba.Set(x, y, RandomColor())
-		}
+	rgba := image.NewRGBA(rectangle)
+	pix := rgba.Pix
+	for i := 0; i < len(pix); i += 4 {
+		v := rand.Uint32()
+		pix[i] = uint8(v)
+		pix[i+1] = uint8(v >> 8)
+		pix[i+2] = uint8(v >> 16)
+		pix[i+3] = 0xff
 	}
-
 	return rgba
 }
 
 //RandomColor returns new random color
 func RandomColor() color.Color {
-	return color.Color(randomColorRGBA())
-}
-
-func randomColorRGBA() *color.RGBA {
+	v := rand.Uint32()
 	return &color.RGBA{
-		R: randomUint8(),
-		G: randomUint8(),
-		B: randomUint8(),
+		R: uint8(v),
+		G: uint8(v >> 8),
+		B: uint8(v >> 16),
 		A: 0xff,
 	}
-}
-
-func randomUint8() uint8 {
-	return uint8(rand.Uint32() % (1 << 8))
 }
