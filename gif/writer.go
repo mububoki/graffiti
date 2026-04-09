@@ -23,5 +23,5 @@ func EncodeRandom(w io.Writer, rectangle image.Rectangle, o *Options) error {
 
 //EncodeGradation writes the gradation image with the rectangle and the color c to w in GIF format.
 func EncodeGradation(w io.Writer, rectangle image.Rectangle, c color.Color, o *Options) error {
-	return gif.Encode(w, graffiti.SolidImage(rectangle, c), o)
+	return gif.Encode(w, graffiti.GradationImage(rectangle, c), o)
 }
