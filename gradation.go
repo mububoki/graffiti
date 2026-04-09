@@ -21,21 +21,23 @@ func gradationRGBA(rectangle image.Rectangle, c color.Color) *image.RGBA {
 
 	rgba := image.NewRGBA(rectangle)
 	dx := rectangle.Dx()
-	minX := rectangle.Min.X
+	dy := rectangle.Dy()
+	stride := rgba.Stride
 
-	for x := minX; x < rectangle.Max.X; x++ {
-		rate := float64(x-minX) / float64(dx)
-		r := rWhite - uint8(float64(distR)*rate)
-		g := rWhite - uint8(float64(distG)*rate)
-		b := rWhite - uint8(float64(distB)*rate)
-		for y := rectangle.Min.Y; y < rectangle.Max.Y; y++ {
-			rgba.Set(x, y, color.RGBA{
-				R: r,
-				G: g,
-				B: b,
-				A: a8,
-			})
-		}
+	// build first row
+	for x := 0; x < dx; x++ {
+		rate := float64(x) / float64(dx)
+		off := x * 4
+		rgba.Pix[off] = rWhite - uint8(float64(distR)*rate)
+		rgba.Pix[off+1] = rWhite - uint8(float64(distG)*rate)
+		rgba.Pix[off+2] = rWhite - uint8(float64(distB)*rate)
+		rgba.Pix[off+3] = a8
+	}
+
+	// copy first row to remaining rows
+	firstRow := rgba.Pix[:stride]
+	for y := 1; y < dy; y++ {
+		copy(rgba.Pix[y*stride:y*stride+stride], firstRow)
 	}
 
 	return rgba
